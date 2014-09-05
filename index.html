@@ -1,0 +1,27 @@
+<html>
+<head>
+  <title>Pushio</title>
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <script type="text/javascript">
+    var socket = io()
+
+    function subscribeToNotifications (website) {
+      socket.emit('subscribe', {
+        website: website
+      })
+
+      socket.on('subscribed', function (data) {
+        if (typeof data.website != 'undefined')
+          console.log('successfully subscribed to website ', data.website)
+      })
+
+      socket.on('update', function (data) {
+        // do something with new data
+        console.log('new update: ', data.message)
+      })
+    }
+  </script>
+</body>
+</html>
